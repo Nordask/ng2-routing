@@ -8,6 +8,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AboutUserComponent } from './about/about-user.component';
+import { UserService } from './shared/services/user.service';
 
 @NgModule({
   imports: [ BrowserModule,
@@ -19,6 +20,7 @@ import { AboutUserComponent } from './about/about-user.component';
                   ContactComponent,
                   NotFoundComponent,
                   AboutUserComponent ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  providers: [UserService]
 })
 export class AppModule {}

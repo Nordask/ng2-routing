@@ -1,33 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-export class User {
-  id: number;
-  name: string;
-  userName:  string;
-  avatar: string;
-}
-
-const users: User[] = [
-  {
-    id: 1,
-    name: 'Chris',
-    userName: 'user1',
-    avatar: 'assets/pictures/avatar1.jpg'
-  },
-  {
-    id: 2,
-    name: 'Tom',
-    userName: 'user2',
-    avatar: 'assets/pictures/avatar2.jpg'
-  },
-  {
-    id: 3,
-    name: 'Holly',
-    userName: 'user3',
-    avatar: 'assets/pictures/avatar3.jpg'
-  },
-]
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../shared/models/user';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
     styles: [`
@@ -38,6 +12,7 @@ const users: User[] = [
         }
     `],
     template: `
+        <a (click)="goBack()" class="btn btn-sm btn-info">Go Back</a>
         <div class="jumbotron text-center" *ngIf="user">
             <h1>{{user.name}}({{user.userName}})</h1>
             
@@ -46,19 +21,22 @@ const users: User[] = [
     `
 })
 export class AboutUserComponent implements OnInit {
-    user;
+    user: User;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, private service: UserService, private router: Router) {
 
     }
 
     ngOnInit() {
         let userName = this.route.snapshot.params['userName'];
         
-        this.user = users.find((user) => {
-            return user.userName === userName;
+        this.service.getUser(userName).then(user => {
+          this.user = user;
         });
-        
-        console.log(userName);
+    }
+
+    goBack() {
+        //window.history.back();
+        this.router.navigate(['/about']);
     }
 }

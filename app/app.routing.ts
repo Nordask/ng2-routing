@@ -8,7 +8,7 @@ import { AboutUserComponent } from './about/about-user.component';
 
 //              for validation
 const appRoutes: Routes = [
-    {path: '', component: HomeComponent},
+    {path: '', redirectTo: 'about', pathMatch: 'full'},
     {path: 'about', component: AboutComponent},
     {path: 'about/:userName', component: AboutUserComponent},
     {path: 'contact', component: ContactComponent},

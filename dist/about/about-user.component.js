@@ -11,51 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var User = (function () {
-    function User() {
-    }
-    return User;
-}());
-exports.User = User;
-var users = [
-    {
-        id: 1,
-        name: 'Chris',
-        userName: 'user1',
-        avatar: 'assets/pictures/avatar1.jpg'
-    },
-    {
-        id: 2,
-        name: 'Tom',
-        userName: 'user2',
-        avatar: 'assets/pictures/avatar2.jpg'
-    },
-    {
-        id: 3,
-        name: 'Holly',
-        userName: 'user3',
-        avatar: 'assets/pictures/avatar3.jpg'
-    },
-];
+var user_service_1 = require("../shared/services/user.service");
 var AboutUserComponent = (function () {
-    function AboutUserComponent(route) {
+    function AboutUserComponent(route, service, router) {
         this.route = route;
+        this.service = service;
+        this.router = router;
     }
     AboutUserComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var userName = this.route.snapshot.params['userName'];
-        this.user = users.find(function (user) {
-            return user.userName === userName;
+        this.service.getUser(userName).then(function (user) {
+            _this.user = user;
         });
-        console.log(userName);
+    };
+    AboutUserComponent.prototype.goBack = function () {
+        //window.history.back();
+        this.router.navigate(['/about']);
     };
     return AboutUserComponent;
 }());
 AboutUserComponent = __decorate([
     core_1.Component({
         styles: ["\n        img\n        {\n            max-width: 50%;\n            margin: 20px auto;\n        }\n    "],
-        template: "\n        <div class=\"jumbotron text-center\" *ngIf=\"user\">\n            <h1>{{user.name}}({{user.userName}})</h1>\n            \n            <img [src]=\"user.avatar\" class=\"img-responsive img-circle\">\n        </div>\n    "
+        template: "\n        <a (click)=\"goBack()\" class=\"btn btn-sm btn-info\">Go Back</a>\n        <div class=\"jumbotron text-center\" *ngIf=\"user\">\n            <h1>{{user.name}}({{user.userName}})</h1>\n            \n            <img [src]=\"user.avatar\" class=\"img-responsive img-circle\">\n        </div>\n    "
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, user_service_1.UserService, router_1.Router])
 ], AboutUserComponent);
 exports.AboutUserComponent = AboutUserComponent;
 //# sourceMappingURL=about-user.component.js.map
