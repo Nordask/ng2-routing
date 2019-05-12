@@ -7,6 +7,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 //              for validation
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
+    {
+        path: 'about',
+        loadChildren: 'app/about/about.module#AboutModule'
+    },
     {path: 'contact', component: ContactComponent},
     {path: '**', component: NotFoundComponent} // order is important, if it was first we will get only 404 page always 
 ];

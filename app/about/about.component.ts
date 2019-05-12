@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../shared/models/user';
-import { UserService } from '../shared/services/user.service';
+//import { UserService } from '../shared/services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'about-page',
@@ -34,9 +35,14 @@ import { UserService } from '../shared/services/user.service';
 export class AboutComponent {
   users: User[];
 
-  constructor(private service: UserService) {}
+  constructor(/*private service: UserService, */private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.service.getUsers().then(users => this.users = users);
+    //this.service.getUsers().then(users => this.users = users); // refactored decision below
+
+    this.route.data.forEach((data: {users: User[]}) => {
+      console.log(data);
+      this.users = data.users;
+    });
   }
 }

@@ -11,6 +11,8 @@ var common_1 = require("@angular/common");
 var about_component_1 = require("./about.component");
 var about_user_component_1 = require("./about-user.component");
 var user_service_1 = require("../shared/services/user.service");
+var about_users_resolve_service_1 = require("./about-users-resolve.service");
+var about_user_resolve_service_1 = require("./about-user-resolve.service");
 var about_routing_1 = require("./about.routing");
 var about_section_component_1 = require("./about-section.component");
 var AboutModule = (function () {
@@ -29,7 +31,9 @@ AboutModule = __decorate([
             about_user_component_1.AboutUserComponent,
             about_section_component_1.AboutSectionComponent
         ],
-        providers: [user_service_1.UserService]
+        providers: [user_service_1.UserService,
+            about_users_resolve_service_1.AboutUsersResolve,
+            about_user_resolve_service_1.AboutUserResolve]
     })
 ], AboutModule);
 exports.AboutModule = AboutModule;

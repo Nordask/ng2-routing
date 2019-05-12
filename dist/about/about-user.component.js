@@ -11,18 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var user_service_1 = require("../shared/services/user.service");
 var AboutUserComponent = (function () {
-    function AboutUserComponent(route, service, router) {
+    function AboutUserComponent(route, router) {
         this.route = route;
-        this.service = service;
         this.router = router;
     }
     AboutUserComponent.prototype.ngOnInit = function () {
+        /* now this logic implemented in service and routing
+        let userName = this.route.snapshot.params['userName'];
+        
+        this.service.getUser(userName).then(user => {
+          this.user = user;
+        });
+        */
         var _this = this;
-        var userName = this.route.snapshot.params['userName'];
-        this.service.getUser(userName).then(function (user) {
-            _this.user = user;
+        this.route.data.forEach(function (data) {
+            _this.user = data.user;
         });
     };
     AboutUserComponent.prototype.goBack = function () {
@@ -36,7 +40,7 @@ AboutUserComponent = __decorate([
         styles: ["\n        img\n        {\n            max-width: 50%;\n            margin: 20px auto;\n        }\n    "],
         template: "\n        <a (click)=\"goBack()\" class=\"btn btn-sm btn-info\">Go Back</a>\n        <div class=\"jumbotron text-center\" *ngIf=\"user\">\n            <h1>{{user.name}}({{user.userName}})</h1>\n            \n            <img [src]=\"user.avatar\" class=\"img-responsive img-circle\">\n        </div>\n    "
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute, user_service_1.UserService, router_1.Router])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, router_1.Router])
 ], AboutUserComponent);
 exports.AboutUserComponent = AboutUserComponent;
 //# sourceMappingURL=about-user.component.js.map
